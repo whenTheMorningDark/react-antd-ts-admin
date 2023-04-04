@@ -1,0 +1,57 @@
+@import url('./config.less');
+
+.layout-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #e4e6eb;
+
+  .layout-menu {
+    width: 256px;
+    height: 100%;
+    transition: all 0.5s;
+
+    .ant-menu {
+      width: 100% !important;
+      height: 100%;
+      background-color: #212a39;
+    }
+  }
+
+  .layout-wrapper {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+
+    .layouts-header {
+      width: 100%;
+      height: @layoutsHeaderHeight;
+    }
+
+    .layout-wrapper-main {
+      width: 100%;
+      height: calc(100% - @layoutsHeaderHeight - @layoutsTabHeight - @smallPadding - @smallPadding);
+      background-color: #eee;
+
+      >div {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  &.is-hidden {
+    .layout-menu {
+      width: 50px;
+    }
+
+    .layout-wrapper {
+      width: calc(100% - 50px);
+    }
+  }
+
+
+
+}

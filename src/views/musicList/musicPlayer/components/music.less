@@ -1,0 +1,78 @@
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.musicProgress{
+  width: 581px;
+  height: 100%;
+  display: flex;
+  color: #e8e8e8;
+  align-items: center;
+  .musicProgress-pic{
+    width: 34px;
+    height: 34px;
+    margin-right: 10px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      animation: rotate 5s linear infinite;
+    }
+  }
+  .musicProgress{
+    display: flex;
+  }
+  .musicProgress-name-progress{
+    display: flex;
+    flex-direction:column;
+    height: 100%;
+    justify-content: center;
+    flex: 1;
+    .title{
+      margin-right: 10px;
+    }
+  }
+  .progress-inner{
+    height: 9px;
+    position: relative;
+    margin-top: 8px;
+    .progress{
+     
+    }
+    .progress-flex{
+      display: flex;
+      position: absolute;
+      height: 9px;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      background-color: #535353;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .progress-btn-wrapper{
+      
+      background-color: #c70c0c;
+      width: 0px;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      
+    }
+    .progress-btn{
+      width:16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #c70c0c;
+      border: 3px solid #eaeaeb;
+      position: relative;
+      top: -3px;
+      left: -6px;
+      cursor: pointer;
+    }
+  }
+}
