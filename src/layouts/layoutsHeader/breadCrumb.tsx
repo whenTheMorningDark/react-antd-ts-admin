@@ -8,7 +8,7 @@ function BreadCrumb() {
   return (
     <Breadcrumb
       items={item}
-      style={{ marginLeft: '13px' }}
+      style={{ marginLeft: '10px' }}
     />
   );
 }
