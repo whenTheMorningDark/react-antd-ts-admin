@@ -1,13 +1,12 @@
 import React from 'react';
 import { useOutlet } from 'react-router-dom';
-
 import { useAppSelector, useAppDispatch } from 'src/store/hook';
 import { usePathName } from 'src/hooks/tabMenuHook';
 import { Drawer } from 'antd';
 import { setDrawProps } from 'src/store/slice/draw';
-// import { getComponentMap, drawComponentMap } from 'src/utils/drawComponent';
 import ListDetail from 'src/views/musicList/listDetail';
 import MusicPlayer from 'src/views/musicList/musicPlayer';
+import SettingDetail from 'src/layouts/layoutsHeader/setting/settingDetail';
 import classNames from 'classnames';
 import Menus from './menus';
 import LayoutsHeader from './layoutsHeader';
@@ -53,6 +52,9 @@ export default function Layouts() {
       >
         {
           drawData.drawProps.children === 'ListDetail' && <ListDetail />
+        }
+        {
+          drawData.drawProps.children === 'settingDetail' && <SettingDetail />
         }
 
       </Drawer>

@@ -8,26 +8,25 @@ import { fetchPostsAsync } from 'src/store/action/musicAction';
 import { getListDataSong } from 'src/store/slice/music';
 
 type baseProps = {
-  picUrl:string
-  name:string
-  id:string | number
+  picUrl: string
+  name: string
+  id: string | number
 }
 
 interface listProps {
-  list:baseProps[]
+  list: baseProps[]
 }
 
-function List(props:listProps) {
+function List(props: listProps) {
   const { list } = props;
   const dispatch = useAppDispatch();
   // const songList = useAppSelector((state) => state.music.songList);
-  const showDrawer = (id:string | number) => {
+  const showDrawer = (id: string | number) => {
     dispatch(fetchPostsAsync(id));
-    console.log('www');
     dispatch(setDrawProps(
       {
         open:
-        true,
+          true,
         title: '歌曲详情',
         width: 840,
         children: 'ListDetail',
@@ -37,7 +36,7 @@ function List(props:listProps) {
       },
     ));
   };
-  const handlePlay = (e:React.MouseEvent, v:any) => {
+  const handlePlay = (e: React.MouseEvent, v: any) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
     // tabAction.delTab(v);
