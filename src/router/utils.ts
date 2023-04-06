@@ -21,14 +21,20 @@ function layoutRoutes(routes: ISideMenu[]): RouteObject[] {
 /**
  * @description 回溯寻找父节点
  */
-function dfsParent(dfsMenus: ISideMenu[], targetId: string) {
+type typeFun = (params: ISideMenu, path: any[]) => void
+
+function dfsParent(dfsMenus: ISideMenu[], targetId: string, cb?: typeFun) {
   const result: any[] = [];
   function dfs(arr: any[], path: any[]) {
     if (!arr || arr.length === 0) {
       return;
     }
     for (const t of arr) {
-      path.push(t.name);
+      if (cb) {
+        cb(t, path);
+      } else {
+        path.push(t.name);
+      }
       if (t.key === targetId) {
         result.push([...path]);
       }
