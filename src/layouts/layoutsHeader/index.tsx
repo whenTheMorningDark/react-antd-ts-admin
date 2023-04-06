@@ -2,12 +2,13 @@ import React from 'react';
 import './index.less';
 import Toggle from './toogle';
 import Setting from './setting';
+import BreadCrumb from './breadCrumb';
 
 const layoutsHeader = () => (
   <div className='layouts-header'>
     <div className='left-wrapper'>
       <Toggle />
-      <div>123</div>
+      <BreadCrumb />
     </div>
     <Setting />
   </div>
