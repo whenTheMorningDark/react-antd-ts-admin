@@ -1,5 +1,30 @@
 @import url('./config.less');
 
+// :where(.css-dev-only-do-not-override-1vtf12y).ant-menu-light .ant-menu-item-selected {
+//   // background-color: var(--main-bg-color);
+// }
+
+:where(.css-dev-only-do-not-override-1vtf12y).ant-menu-light .ant-menu-submenu-selected>.ant-menu-submenu-title {
+  color: var(--main-bg-color);
+}
+
+:where(.css-dev-only-do-not-override-1vtf12y).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-submenu-title:active,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-menu-light>.ant-menu:not(.ant-menu-horizontal) .ant-menu-submenu-title:active {
+  background-color: transparent;
+}
+
+:where(.css-dev-only-do-not-override-1vtf12y).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):active {
+  background-color: transparent;
+}
+
+:where(.css-dev-only-do-not-override-1vtf12y).ant-menu-light .ant-menu-item-selected {
+  background-color: #eee;
+}
+
+:where(.css-dev-only-do-not-override-1vtf12y).ant-menu-light .ant-menu-item-selected {
+  color: var(--main-bg-color);
+}
+
 .layout-container {
   display: flex;
   width: 100%;
@@ -15,7 +40,7 @@
     .ant-menu {
       width: 100% !important;
       height: 100%;
-      background-color: #212a39;
+      // background-color: #212a39;
     }
   }
 

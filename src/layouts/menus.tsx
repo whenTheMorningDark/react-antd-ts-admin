@@ -22,7 +22,7 @@ function Menus(props: IProps) {
   };
   return (
     <Menu
-      theme='dark'
+      theme='light'
       onClick={onClick}
       style={{ width: 256 }}
       openKeys={openKeys}
