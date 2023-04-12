@@ -1,9 +1,10 @@
 import React from 'react';
+import WrapperList from './wrapperList';
 
 function GameList() {
   return (
-    <div>
-      <span>GameList</span>
+    <div className='gameList'>
+      <WrapperList />
     </div>
   );
 }

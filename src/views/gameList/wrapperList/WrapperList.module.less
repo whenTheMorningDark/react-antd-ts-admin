@@ -1,0 +1,79 @@
+.wrapperList {
+  display: flex;
+
+  :global {
+    .list-row {
+      display: grid;
+      padding-left: 8px;
+      width: 100%;
+      flex-wrap: wrap;
+      column-gap: 10px;
+      row-gap: 12px;
+      padding-top: 10px;
+      grid-template-columns: repeat(4, 1fr);
+
+      .list-row-item {
+        width: 395px;
+        height: 145px;
+        display: flex;
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+        background-color: #fff;
+        border-radius: 4px;
+
+        .img {
+          width: 72px;
+          margin-right: 8px;
+          display: flex;
+          padding-top: 9px;
+
+          img {
+            border-radius: 4px;
+          }
+        }
+
+        .list-row-item-right {
+          // flex: 1;
+          width: calc(100% - 80px);
+
+          .list-row-item-title {
+            height: 32px;
+            line-height: 32px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #484848;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          .list-row-item-desc {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            color: #3b3b3b;
+            margin-bottom: 6px;
+            line-height: 20px;
+            text-indent: 17px;
+          }
+
+          .list-row-item-bottom {
+            text-align: right;
+          }
+        }
+
+        .ant-btn-primary {
+          background-color: var(--main-bg-color);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  .list-row {
+    grid-template-columns: repeat(4, 1fr)
+  }
+}

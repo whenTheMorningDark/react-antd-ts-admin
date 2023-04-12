@@ -86,7 +86,6 @@ const getGenerateColor = (primaryColor: string) => {
 
     colors.push(color);
   }
-  console.log(colors, 'colors');
 
   return colors;
 };
