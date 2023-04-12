@@ -23,14 +23,6 @@ function MusicPlayer() {
       audioRef.current.src = currentSong.url;
       audioRef.current.play();
       setPlatStatus(true);
-      // setProgressProps((prveState) => ({
-      //   ...prveState,
-      //   ...currentSong,
-      // }));
-      // setProgressProps({
-      //   picUrl: currentSong.src,
-      //   name: currentSong.title,
-      // });
     }
   }, [currentSong]);
   useEffect(() => {

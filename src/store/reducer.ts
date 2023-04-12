@@ -5,6 +5,7 @@ import tab from './slice/tab';
 import auth from './slice/auth';
 import draw from './slice/draw';
 import music from './slice/music';
+import global from './slice/global';
 // 引入之前写好的slice（读取状态）
 const reducers = {
   // 声明状态在此处
@@ -13,6 +14,7 @@ const reducers = {
   auth,
   draw,
   music,
+  global,
 };
 const rootReducer = combineReducers(reducers);
 export type RootState = ReturnType<typeof rootReducer>;

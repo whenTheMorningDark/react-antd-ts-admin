@@ -1,20 +1,13 @@
 import React from 'react';
-// import 'Src/hooks/useColor';
-// import { Color } from 'tvision-color';
-import { getGenerateColor } from 'src/hooks/useColor';
 import './settingDetail.less';
+import { switchColor } from 'src/store/slice/global';
+import { useAppDispatch } from 'src/store/hook';
 
 function SettingDetail() {
   const diyColor = ['#0052d9', '#0594fa', '#00a870', '#ebb105', '#ed7b2f', '#e34d59', '#ed49b4', '#834ec2'];
+  const dispatch = useAppDispatch();
   const changeColor = (color: string) => {
-    const styleSheet = document.createElement('style');
-    // console.log(getGenerateColor(color), 'color');
-    const colorResult = getGenerateColor(color);
-    styleSheet.textContent = `:root{
-      --main-bg-color:${colorResult[0]};
-      --td-color1:${colorResult[1]}
-    }`;
-    document.head.append(styleSheet);
+    dispatch(switchColor(color));
   };
   return (
     <div className='settingDetawil'>
@@ -22,7 +15,6 @@ function SettingDetail() {
         主题色
       </div>
       <div className='setting-diy-color'>
-        {/* <div className='diy-item' /> */}
         {
           diyColor.map((v) => (
             <div

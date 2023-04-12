@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useOutlet } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from 'src/store/hook';
 import { usePathName } from 'src/hooks/tabMenuHook';
 import { Drawer } from 'antd';
 import { setDrawProps } from 'src/store/slice/draw';
+import { switchColor } from 'src/store/slice/global';
+
 import ListDetail from 'src/views/musicList/listDetail';
 import MusicPlayer from 'src/views/musicList/musicPlayer';
 import SettingDetail from 'src/layouts/layoutsHeader/setting/settingDetail';
@@ -15,6 +17,8 @@ import './index.less';
 
 const MenusMemoized = React.memo(Menus);
 
+const MusicPlayerMemoized = React.memo(MusicPlayer);
+
 export default function Layouts() {
   const menu = useAppSelector((state) => state.menu);
   const dispatch = useAppDispatch();
@@ -24,12 +28,14 @@ export default function Layouts() {
   const layOutCls = classNames('layout-container', {
     'is-hidden': menu.toggle,
   });
-
-  const onClose = () => {
+  useEffect(() => {
+    dispatch(switchColor('#0052d9'));
+  }, [dispatch]);
+  const onClose = useCallback(() => {
     dispatch(setDrawProps({
       open: false,
     }));
-  };
+  }, [dispatch]);
   return (
     <div className={layOutCls}>
       <div className='layout-menu'>
@@ -45,7 +51,7 @@ export default function Layouts() {
         <LayoutsTab tab={tab} tabAction={tabAction} />
         <div className='layout-wrapper-main'>{outlet}</div>
       </div>
-      <MusicPlayer />
+      <MusicPlayerMemoized />
       <Drawer
         {...drawData.drawProps}
         onClose={onClose}
