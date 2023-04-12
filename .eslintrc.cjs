@@ -1,0 +1,78 @@
+const OFF = 0;
+const WARN = 1;
+const ERROR = 2;
+module.exports = {
+  root: true,
+  extends: [
+    'airbnb-base',
+    'prettier',
+    'plugin:react/recommended',
+    'plugin:import/typescript',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  plugins: ['eslint-plugin-prettier'],
+  parser: '@typescript-eslint/parser',
+  env: {
+    jest: true,
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  rules: {
+    'import/extensions': [
+      ERROR,
+      'ignorePackages',
+      {
+        ts: 'never',
+        tsx: 'never',
+        js: 'never',
+      },
+    ],
+    'import/no-extraneous-dependencies': OFF,
+    'no-param-reassign': OFF,
+    'import/prefer-default-export': OFF,
+    'import/no-unresolved': OFF,
+    'import/no-dynamic-require': OFF,
+
+
+    '@typescript-eslint/no-useless-constructor': ERROR,
+    '@typescript-eslint/no-empty-function': WARN,
+    '@typescript-eslint/no-var-requires': OFF,
+    '@typescript-eslint/explicit-function-return-type': OFF,
+    '@typescript-eslint/explicit-module-boundary-types': OFF,
+    '@typescript-eslint/no-explicit-any': OFF,
+    '@typescript-eslint/no-use-before-define': ERROR,
+    '@typescript-eslint/no-unused-vars': WARN,
+    'no-unused-vars': OFF,
+    'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
+    'react/jsx-indent-props': [ERROR, 2],
+    'react/jsx-indent': [ERROR, 2],
+    'react/jsx-one-expression-per-line': OFF,
+    'react/destructuring-assignment': OFF,
+    'react/state-in-constructor': OFF,
+    'react/jsx-props-no-spreading': OFF,
+    'react/prop-types': OFF,
+
+    'jsx-a11y/click-events-have-key-events': OFF,
+    'jsx-a11y/no-noninteractive-element-interactions': OFF,
+    'jsx-a11y/no-static-element-interactions': OFF,
+
+    'lines-between-class-members': [ERROR, 'always'],
+    // indent: [ERROR, 2, { SwitchCase: 1 }],
+    'linebreak-style': [0, 'error', 'window'],
+    quotes: [ERROR, 'single'],
+    semi: [ERROR, 'always'],
+    'no-unused-expressions': WARN,
+    'no-plusplus': OFF,
+    'no-console': OFF,
+    'class-methods-use-this': ERROR,
+    'jsx-quotes': [ERROR, 'prefer-single'],
+    'global-require': OFF,
+    'no-use-before-define': OFF,
+    'no-restricted-syntax': OFF,
+    'no-continue': OFF,
+    'object-curly-newline': OFF,
+  },
+};

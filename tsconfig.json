@@ -1,43 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "ESNext",
+    "baseUrl": "src",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "noImplicitAny": false,
     "allowJs": true,
-    "jsx": "react",
-    "isolatedModules": true,
-    "strict": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "baseUrl": "./",
-    "paths": {
-      "Src/*": [
-        "src/*"
-      ],
-      "Components/*": [
-        "src/components/*"
-      ],
-      "Utils/*": [
-        "src/utils/*"
-      ],
-      "Views/*": [
-        "src/views/*"
-      ]
-    },
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "noEmit": true
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
-  "exclude": [
-    "node_modules"
+  "include": [
+    "src"
   ]
 }
