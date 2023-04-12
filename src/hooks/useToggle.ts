@@ -25,7 +25,6 @@ function useToggle<D, R>(defaultValue: D = false as unknown as D, reverseValue?:
     const set = (value: D | R) => setState(value);
     const setLeft = () => setState(defaultValue);
     const setRight = () => setState(reverseValueOrigin);
-    console.log(state, 'tooglestate');
     return {
       toggle,
       set,

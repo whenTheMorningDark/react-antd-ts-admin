@@ -1,23 +1,18 @@
 import React from 'react';
+// import 'Src/hooks/useColor';
+// import { Color } from 'tvision-color';
+import { getGenerateColor } from 'src/hooks/useColor';
 import './settingDetail.less';
 
-const settingDetail = () => {
-  console.log('settingDetail');
-  const diyColor = [
-    '#0F2C5D',
-    '#ACD4FD',
-    '#F7C5C8',
-    '#ED759E',
-    '#43A3FF',
-    '#22B5C8',
-    '#838AA3',
-    '#4E61BF',
-    '#B7BDFF',
-  ];
+function SettingDetail() {
+  const diyColor = ['#0052d9', '#0594fa', '#00a870', '#ebb105', '#ed7b2f', '#e34d59', '#ed49b4', '#834ec2'];
   const changeColor = (color: string) => {
     const styleSheet = document.createElement('style');
+    // console.log(getGenerateColor(color), 'color');
+    const colorResult = getGenerateColor(color);
     styleSheet.textContent = `:root{
-      --main-bg-color:${color}
+      --main-bg-color:${colorResult[0]};
+      --td-color1:${colorResult[1]}
     }`;
     document.head.append(styleSheet);
   };
@@ -42,6 +37,6 @@ const settingDetail = () => {
 
     </div>
   );
-};
+}
 
-export default settingDetail;
+export default SettingDetail;
