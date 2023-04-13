@@ -1,5 +1,6 @@
 import React from 'react';
 import AppLayout from './components/AppLayout';
+import './index.less';
 
 const Layouts = () => {
   console.log('w');
