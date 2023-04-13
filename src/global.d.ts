@@ -32,6 +32,13 @@ declare module '*.svg' {
 declare module '*.svg?component' {
   export default src as string;
 }
+declare module '*.svg' {
+  import React = require('react');
+
+  export const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  const src: string;
+  export default src;
+}
 declare module '*.module.css' {
   export default classes as { readonly [key: string]: string };
 }

@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
 import { BrowserRouterProps } from 'react-router-dom';
 import dashboardRouter from './modules/dashboard';
+import resultRouter from './modules/result';
 
 export interface IRouter {
   key: string;
@@ -38,7 +39,7 @@ const routes: IRouter[] = [
   },
 ];
 
-const allRoutes = [...routes, ...dashboardRouter];
+const allRoutes = [...routes, ...dashboardRouter, ...resultRouter];
 
 
 export default allRoutes;

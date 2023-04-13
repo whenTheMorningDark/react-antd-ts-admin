@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Menu } from 'antd';
 import router, { IRouter } from 'router';
+import { useLocation } from 'react-router-dom';
 
 const filterMenu = (routes: IRouter[]) => {
   const tRouters: IRouter[] = JSON.parse(JSON.stringify(routes));
@@ -14,15 +15,19 @@ const filterMenu = (routes: IRouter[]) => {
 };
 
 
+console.log(filterMenu(router), 'filterMenu(router)');
+const defaultMenu = () => {
+  const location = useLocation();
+  return (
 
-const defaultMenu = () => (
-  <Menu
-    style={{ width: 256 }}
-    defaultSelectedKeys={['1']}
-    defaultOpenKeys={['sub1']}
-    mode='inline'
-    items={filterMenu(router)}
-  />
-);
+    <Menu
+      style={{ width: 256 }}
+      defaultSelectedKeys={[location.pathname]}
+      defaultOpenKeys={['sub1']}
+      mode='inline'
+      items={filterMenu(router)}
+    />
+  );
+};
 
 export default memo(defaultMenu);
