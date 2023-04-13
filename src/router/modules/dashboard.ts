@@ -1,10 +1,11 @@
 import { lazy } from 'react';
+import { IRouter } from '../index';
 
-const result = [
+const result: IRouter[] = [
   {
-    path: '/dashboard',
+    key: '/dashboard',
+    label: '首页',
     meta: {
-      title: '首页',
     },
     Component: lazy(() => import('pages/Dashboard')),
   },

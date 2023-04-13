@@ -14,7 +14,7 @@ type TRenderRoutes = (routes: IRouter[], parentPath?: string, breadcrumbs?: stri
 const renderRoutes: TRenderRoutes = (routes, parentPath = '') =>
   routes.map((route, index: number) => {
     const { Component, children, redirect } = route;
-    const currentPath = resolve(parentPath, route.path);
+    const currentPath = resolve(parentPath, route.key);
     if (redirect) {
       // 重定向
       return <Route key={index} path={currentPath} element={<Navigate to={redirect} replace />} />;
