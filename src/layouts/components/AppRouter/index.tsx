@@ -1,10 +1,9 @@
 import React, { memo } from 'react';
-import { Layout } from 'antd';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import routers, { IRouter } from 'router';
 import { resolve } from 'utils/path';
+import Page from '../pages';
 
-const { Content } = Layout;
 type TRenderRoutes = (routes: IRouter[], parentPath?: string, breadcrumbs?: string[]) => React.ReactNode[];
 /**
  * 渲染应用路由
@@ -27,7 +26,9 @@ const renderRoutes: TRenderRoutes = (routes, parentPath = '') =>
           key={index}
           path={currentPath}
           element={
-            <Component />
+            <Page isFullPage={route.isFullPage}>
+              <Component />
+            </Page>
           }
         />
       );
@@ -39,9 +40,7 @@ const renderRoutes: TRenderRoutes = (routes, parentPath = '') =>
 const AppRouter = () => {
   console.log('AppRouter');
   return (
-    <Content>
-      <Routes>{renderRoutes(routers)}</Routes>
-    </Content>
+    <Routes>{renderRoutes(routers)}</Routes>
   );
 };
 export default memo(AppRouter);

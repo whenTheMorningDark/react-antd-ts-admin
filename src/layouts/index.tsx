@@ -1,14 +1,17 @@
 import React from 'react';
-import AppLayout from './components/AppLayout';
 import './index.less';
+import { selectGlobal } from 'modules/global';
+import { useAppSelector } from 'modules/store';
+import AppLayout from './components/AppLayout';
 
 const Layouts = () => {
-  console.log('w');
+  const globalState = useAppSelector(selectGlobal);
+  const AppContainer = globalState.isFullPage ? AppLayout.FullPageLayout : AppLayout.SideLayout;
   return (
     <div className='layouts-page'>
-      <AppLayout />
+      <AppContainer />
     </div>
   );
 };
 
-export default Layouts;
+export default React.memo(Layouts);

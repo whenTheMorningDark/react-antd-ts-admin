@@ -1,5 +1,6 @@
 import React, { lazy } from 'react';
 import { BrowserRouterProps } from 'react-router-dom';
+import dashboardRouter from './modules/dashboard';
 
 export interface IRouter {
   path: string;
@@ -37,6 +38,7 @@ const routes = [
   },
 ];
 
-const allRoutes = [...routes];
+const allRoutes = [...routes, ...dashboardRouter];
+
 
 export default allRoutes;

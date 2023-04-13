@@ -1,5 +1,23 @@
-.layouts-page,
-.ant-layout-content {
+.ant-layout {
   width: 100%;
   height: 100%;
+  display: flex;
+}
+
+.layouts-page {
+  width: 100%;
+  height: 100%;
+
+  .layout-sidebar {
+    display: flex;
+    height: 100%;
+
+    .ant-menu {
+      height: 100%;
+    }
+  }
+}
+
+.ant-layout-content {
+  width: calc(100% - 256px);
 }
