@@ -10,7 +10,8 @@ export default defineConfig({
     alias: {
       layouts: path.resolve(__dirname, './src/layouts'),
       router: path.resolve(__dirname, './src/router'),
-      pages: path.resolve(__dirname, './src/pages')
+      pages: path.resolve(__dirname, './src/pages'),
+      utils: path.resolve(__dirname, './src/utils')
     }
   },
   server: {

@@ -1,15 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Layout } from 'antd';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import routers, { IRouter } from 'router';
+import { resolve } from 'utils/path';
 
-export const resolve = (path1 = '', path2 = '') => {
-  let separator = '/';
-  if (path1.endsWith('/') || path2.startsWith('/')) {
-    separator = '';
-  }
-  return `${path1}${separator}${path2}`;
-};
 const { Content } = Layout;
 type TRenderRoutes = (routes: IRouter[], parentPath?: string, breadcrumbs?: string[]) => React.ReactNode[];
 /**
@@ -18,21 +12,14 @@ type TRenderRoutes = (routes: IRouter[], parentPath?: string, breadcrumbs?: stri
  * @param parentPath
  * @param breadcrumb
  */
-const renderRoutes: TRenderRoutes = (routes, parentPath = '', breadcrumb = []) =>
+const renderRoutes: TRenderRoutes = (routes, parentPath = '') =>
   routes.map((route, index: number) => {
-    const { Component, children, redirect, meta } = route;
+    const { Component, children, redirect } = route;
     const currentPath = resolve(parentPath, route.path);
-    let currentBreadcrumb = breadcrumb;
-
-    if (meta?.title) {
-      currentBreadcrumb = currentBreadcrumb.concat([meta?.title]);
-    }
-
     if (redirect) {
       // 重定向
       return <Route key={index} path={currentPath} element={<Navigate to={redirect} replace />} />;
     }
-
     if (Component) {
       // 有路由菜单
       return (
@@ -46,7 +33,7 @@ const renderRoutes: TRenderRoutes = (routes, parentPath = '', breadcrumb = []) =
       );
     }
     // 无路由菜单
-    return children ? renderRoutes(children, currentPath, currentBreadcrumb) : null;
+    return children ? renderRoutes(children, currentPath) : null;
   });
 
 const AppRouter = () => {
@@ -57,4 +44,4 @@ const AppRouter = () => {
     </Content>
   );
 };
-export default AppRouter;
+export default memo(AppRouter);
