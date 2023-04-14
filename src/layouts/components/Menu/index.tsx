@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Menu } from 'antd';
 import router, { IRouter } from 'router';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -28,23 +28,47 @@ const filterMenu = (routes: IRouter[]) => {
 
 
 const defaultMenu = () => {
+  const [defaultSelectedKeys, setDefaultSelectedKeys] = useState('');
+  const [openKeys, setOpenKeys] = useState<string[]>([]);
   const location = useLocation();
   const navigate = useNavigate();
-  const defaultSelectedKeys = getActivePath(location.pathname);
-  const defaultOpenKeys = pathToParent(router, defaultSelectedKeys);
-  const lastOpenKeys = defaultOpenKeys.slice(0, defaultOpenKeys.length - 1);
   const menuClick: MenuProps['onClick'] = (item) => {
     const pathKey = item.keyPath.reverse().join('');
     navigate(pathKey);
   };
+
+  useEffect(() => {
+    const targetPath = getActivePath(location.pathname);
+    setDefaultSelectedKeys(targetPath);
+
+  }, [location.pathname]);
+  const onOpenChange = (keys: string[]) => {
+    console.log(keys, 'openKeysTarget', defaultSelectedKeys);
+    if (keys.length > openKeys.length) {
+      setOpenKeys(keys);
+    } else {
+      setOpenKeys(keys.filter((key) => openKeys.indexOf(key) !== -1));
+    }
+  };
+
+  useEffect(() => {
+    console.log(defaultSelectedKeys, 'defaultSelectedKeys');
+    if (defaultSelectedKeys.length === 0) {
+      return;
+    }
+    const defaultOpenKeys = pathToParent(router, defaultSelectedKeys);
+    console.log(defaultOpenKeys, 'defaultOpenKeys');
+    // onOpenChange(defaultOpenKeys);
+  }, [defaultSelectedKeys]);
   return (
     <Menu
       style={{ width: 256 }}
-      defaultSelectedKeys={[defaultSelectedKeys]}
-      defaultOpenKeys={lastOpenKeys}
+      selectedKeys={[defaultSelectedKeys]}
+      openKeys={openKeys}
       mode='inline'
       items={filterMenu(router)}
       onClick={menuClick}
+      onOpenChange={onOpenChange}
     />
   );
 };
