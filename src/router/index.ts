@@ -39,6 +39,13 @@ const routes: IRouter[] = [
       hidden: true,
     },
   },
+  {
+    key: '/',
+    redirect: '/dashboard',
+    meta: {
+      hidden: true,
+    },
+  },
 ];
 
 const allRoutes = [...routes, ...dashboardRouter, ...resultRouter];

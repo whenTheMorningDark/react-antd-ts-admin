@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { Menu } from 'antd';
 import router, { IRouter } from 'router';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getActivePath, pathToParent } from 'utils/path';
-import { HomeOutlined, ReconciliationOutlined, CodepenOutlined } from '@ant-design/icons';
+import { HomeOutlined, ReconciliationOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
 
 const iconMap = {
   HomeOutlined: <HomeOutlined />
@@ -25,11 +26,17 @@ const filterMenu = (routes: IRouter[]) => {
 };
 
 
+
 const defaultMenu = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const defaultSelectedKeys = getActivePath(location.pathname);
   const defaultOpenKeys = pathToParent(router, defaultSelectedKeys);
   const lastOpenKeys = defaultOpenKeys.slice(0, defaultOpenKeys.length - 1);
+  const menuClick: MenuProps['onClick'] = (item) => {
+    const pathKey = item.keyPath.reverse().join('');
+    navigate(pathKey);
+  };
   return (
     <Menu
       style={{ width: 256 }}
@@ -37,6 +44,7 @@ const defaultMenu = () => {
       defaultOpenKeys={lastOpenKeys}
       mode='inline'
       items={filterMenu(router)}
+      onClick={menuClick}
     />
   );
 };

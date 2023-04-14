@@ -1,6 +1,5 @@
 import { lazy } from 'react';
 // import { BorderOuterOutlined } from '@ant-design/icons';
-// import { HomeOutlined, ReconciliationOutlined, CodepenOutlined } from '@ant-design/icons';
 import { IRouter } from '../index';
 
 const dashboardRouter: IRouter[] = [
