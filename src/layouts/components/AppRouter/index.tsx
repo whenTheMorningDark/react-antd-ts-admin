@@ -26,7 +26,7 @@ const renderRoutes: TRenderRoutes = (routes, parentPath = '') =>
           key={index}
           path={currentPath}
           element={
-            <Page isFullPage={route.isFullPage}>
+            <Page isFullPage={route.meta?.isFullPage}>
               <Component />
             </Page>
           }

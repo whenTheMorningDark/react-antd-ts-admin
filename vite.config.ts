@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import eslint from 'vite-plugin-eslint';
 import path from 'path';
-// import svgr from '@honkhonk/vite-plugin-svgr';const svgr = require('@svgr/core').default
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({

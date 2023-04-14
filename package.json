@@ -10,6 +10,7 @@
     "lint:fix": "eslint ./src --ext ts,tsx --fix"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@svgr/core": "^7.0.0",
     "antd": "^5.4.2",

@@ -1,22 +1,24 @@
 import React, { lazy } from 'react';
 import { BrowserRouterProps } from 'react-router-dom';
+import type { SubMenuType } from 'antd/lib/menu/hooks/useItems';
 import dashboardRouter from './modules/dashboard';
 import resultRouter from './modules/result';
 
-export interface IRouter {
+export interface IRouter extends Omit<SubMenuType, 'children' | 'label' | 'icon'> {
   key: string;
   redirect?: string;
   Component?: React.FC<BrowserRouterProps> | (() => any);
   /**
    * 当前路由是否全屏显示
    */
-  isFullPage?: boolean;
   label?: string;
-  Icon?: React.FC;
+  icon?: React.ReactNode | string;
   /**
    * meta未赋值 路由不显示到菜单中
    */
   meta?: {
+    isFullPage?: boolean;
+
     /**
      * 侧边栏隐藏该路由
      */
@@ -32,8 +34,8 @@ const routes: IRouter[] = [
   {
     key: '/login',
     Component: lazy(() => import('pages/Login')),
-    isFullPage: true,
     meta: {
+      isFullPage: true,
       hidden: true,
     },
   },
