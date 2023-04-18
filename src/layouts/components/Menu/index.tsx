@@ -40,26 +40,16 @@ const defaultMenu = () => {
   useEffect(() => {
     const targetPath = getActivePath(location.pathname);
     setDefaultSelectedKeys(targetPath);
-
+    const defaultOpenKeys = pathToParent(router, targetPath);
+    setOpenKeys([...defaultOpenKeys, ...openKeys]);
   }, [location.pathname]);
   const onOpenChange = (keys: string[]) => {
-    console.log(keys, 'openKeysTarget', defaultSelectedKeys);
     if (keys.length > openKeys.length) {
       setOpenKeys(keys);
     } else {
       setOpenKeys(keys.filter((key) => openKeys.indexOf(key) !== -1));
     }
   };
-
-  useEffect(() => {
-    console.log(defaultSelectedKeys, 'defaultSelectedKeys');
-    if (defaultSelectedKeys.length === 0) {
-      return;
-    }
-    const defaultOpenKeys = pathToParent(router, defaultSelectedKeys);
-    console.log(defaultOpenKeys, 'defaultOpenKeys');
-    // onOpenChange(defaultOpenKeys);
-  }, [defaultSelectedKeys]);
   return (
     <Menu
       style={{ width: 256 }}
