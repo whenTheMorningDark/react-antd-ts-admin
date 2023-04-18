@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getActivePath, pathToParent } from 'utils/path';
 import * as Icon from '@ant-design/icons';
 import type { MenuProps } from 'antd';
+import { useAppSelector } from 'modules/store';
 
 const iconToElement = (name: any) =>
   React.createElement(Icon && (Icon as any)[name], {
@@ -32,6 +33,7 @@ const defaultMenu = () => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const location = useLocation();
   const navigate = useNavigate();
+  const global = useAppSelector((state) => state.global);
   const menuClick: MenuProps['onClick'] = (item) => {
     const pathKey = item.keyPath.reverse().join('');
     navigate(pathKey);
@@ -50,15 +52,23 @@ const defaultMenu = () => {
       setOpenKeys(keys.filter((key) => openKeys.indexOf(key) !== -1));
     }
   };
+  useEffect(() => {
+    if (!global.isToggle) {
+      const targetPath = getActivePath(location.pathname);
+      const defaultOpenKeys = pathToParent(router, targetPath);
+      onOpenChange(defaultOpenKeys);
+    }
+  }, [global.isToggle]);
   return (
     <Menu
-      style={{ width: 256 }}
+      style={{ width: global.isToggle ? 80 : 256 }}
       selectedKeys={[defaultSelectedKeys]}
       openKeys={openKeys}
       mode='inline'
       items={filterMenu(router)}
       onClick={menuClick}
       onOpenChange={onOpenChange}
+      inlineCollapsed={global.isToggle}
     />
   );
 };
