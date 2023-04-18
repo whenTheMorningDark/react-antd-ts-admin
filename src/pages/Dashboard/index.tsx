@@ -8,7 +8,7 @@ const Dashboard = () => {
     navigate('/result/403/40334');
   };
   return (
-    <div>
+    <div className='z-h-100'>
       <button type='button' onClick={jump}>s</button>
 
     </div>

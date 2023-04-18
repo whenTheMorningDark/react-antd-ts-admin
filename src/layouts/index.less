@@ -1,5 +1,5 @@
 .ant-layout {
-  width: 100%;
+  width: calc(100% - 256px);
   height: 100%;
   display: flex;
 }
@@ -18,6 +18,15 @@
   }
 }
 
+:where(.css-dev-only-do-not-override-htwhyh).ant-layout-header {
+  background-color: #fff;
+  padding-inline: 20px;
+  display: flex;
+  align-items: center;
+}
+
 .ant-layout-content {
-  width: calc(100% - 256px);
+  width: 100%;
+  // height: calc(100% - 64px);
+  // flex: none;
 }
