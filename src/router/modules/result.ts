@@ -5,6 +5,7 @@ const result: IRouter[] = [
   {
     key: '/result',
     label: '结果页',
+    icon: 'SecurityScanOutlined',
     children: [
       {
         key: '/403',
