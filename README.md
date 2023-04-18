@@ -1,7 +1,8 @@
 
-新建dashboard页面
+# 新建dashboard页面
 上个章节已经完成了登录逻辑操作，管理后台的常见布局为左边菜单栏，右侧为内容区域。那么我们就针对该布局方式，进行深入讨论。
 在router/modules，新建dashboard.ts，用于存储首页的路由数据，
+```typescript
 import { lazy } from 'react';
 
 const result = [
@@ -17,7 +18,9 @@ const result = [
 
 export default result;
 
+```
 在pages/新建Dashboard页面
+```typescript
 import React, { memo } from 'react';
 
 const Dashboard = () => {
@@ -28,9 +31,11 @@ const Dashboard = () => {
 };
 
 export default memo(Dashboard);
-此时在浏览器输入 http://localhost:4000/dashboard 便可以看到dashboard的信息了
-menu组件开发
+```
+此时在浏览器输入 [http://localhost:4000/dashboard](http://localhost:4000/dashboard) 便可以看到dashboard的信息了
+# menu组件开发
 这里还是选取的antd中的menu组件
+```typescript
 import React, { memo } from 'react';
 import { Menu } from 'antd';
 import router, { IRouter } from 'router';
@@ -98,7 +103,9 @@ const defaultMenu = () => {
 };
 
 export default memo(defaultMenu);
+```
 然后再AppLayOut引入menu组件，
+```typescript
 import React from 'react';
 import AppRouter from '../AppRouter';
 import Menu from '../Menu';
@@ -110,8 +117,10 @@ const FullPageLayout = () => (
 );
 
 export default FullPageLayout;
-当我们访问 http://localhost:4000/dashboard 是能够出来dashboard页面的，但是当我们访问http://localhost:4000/login的时候，它的侧边栏菜单还是出现了，这并不符合我们的预期。还记得我们在IRouter中定义了isFullPage字段，这个时候isFullPage就起到了作用。
+```
+当我们访问 [http://localhost:4000/dashboard](http://localhost:4000/dashboard) 是能够出来dashboard页面的，但是当我们访问[http://localhost:4000/](http://localhost:4000/dashboard)login的时候，它的侧边栏菜单还是出现了，这并不符合我们的预期。还记得我们在IRouter中定义了isFullPage字段，这个时候isFullPage就起到了作用。
 接下来就修改appRouter中的代码，
+```typescript
 ....
 if (Component) {
       // 有路由菜单
@@ -128,12 +137,14 @@ if (Component) {
       );
     }
 ...
+```
 添加Page组件，由于我们访问地址的时候，就已经进入到了Route组件了，我们通过element中的Page组件，告知外部你当前的页面是否isFullPage，如果是true，则通知到AppLayout组件，改变布局的方式。类似这样的跨组件通信的方式，在React中有很多工具，我们在这里选择了@reduxjs/toolkit
 
+# toolkit跨组件通信
+> npm i @reduxjs/toolkit  react-redux --save
 
-toolkit跨组件通信
-npm i @reduxjs/toolkit  react-redux --save
 在src目录下新建modules/stores，创建toolkit是有专门的套路模板的
+```typescript
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
@@ -153,7 +164,9 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export default store;
+```
 modules/global
+```typescript
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../store';
@@ -184,8 +197,10 @@ export const selectGlobal = (state: RootState) => state.global;
 
 
 export default globalSlice.reducer;
+```
 你只需要知道在globalSlice的reducers，执行的是同步方法，在extraReducers执行异步方法即可（后面会有操作）
 在main.ts中注入store，此时需要借助react-redux中的Provider
+```typescript
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from 'layouts/index';
@@ -201,8 +216,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </BrowserRouter>
   </Provider>
 );
+```
 我们回到src\layouts\components\pages\index.tsx文件下，此时我们是已经能够知道页面是否需要侧边栏的了，那么我们就在这个过程发起dispatch即可
 在src\modules\global\index.ts的reducers，添加switchFullPage方法，用来修改当前是否有侧边栏状态
+```typescript
 ...
 reducers: {
     switchFullPage: (state, action) => {
@@ -213,7 +230,9 @@ reducers: {
 
 export const { switchFullPage } = globalSlice.actions;
 ...
+```
 在src\layouts\components\pages\index.tsx
+```typescript
 import { useAppDispatch } from 'modules/store';
 import { switchFullPage } from 'modules/global';
 ...
@@ -232,7 +251,9 @@ const Page = (props: React.PropsWithChildren<PageProps>) => {
     </Content>
   );
 };
+```
 修改AppLayout逻辑
+```typescript
 
 import React from 'react';
 import AppRouter from '../AppRouter';
@@ -257,7 +278,9 @@ export default {
   SideLayout,
   FullPageLayout
 };
+```
 在src\layouts\index.tsx，修改对应业务
+```typescript
 import React from 'react';
 import './index.less';
 import { selectGlobal } from 'modules/global';
@@ -275,10 +298,12 @@ const Layouts = () => {
 };
 
 export default Layouts;
+```
 那么在这个时候就能发现，dashboard的页面是有侧边栏，而login是没有的。
-代码地址：https://github.com/whenTheMorningDark/react-antd-ts-admin/tree/2-menu-router
-动态菜单
+代码地址：[https://github.com/whenTheMorningDark/react-antd-ts-admin/tree/2-menu-router](https://github.com/whenTheMorningDark/react-antd-ts-admin/tree/2-menu-router)
+# 动态菜单
 在src\layouts\components\Menu\index.tsx文件，过滤isFullPage和hidden的数据
+```typescript
 const filterMenu = (routes: IRouter[]) => {
   const tRouters: IRouter[] = JSON.parse(JSON.stringify(routes));
   return tRouters.filter(v => {
@@ -298,13 +323,15 @@ const defaultMenu = () => (
     items={filterMenu(router)}
   />
 );
+```
   delete v.Component，如果不删除Component属性的话，控制台会出现一个警告，所以我们先对原数组做一个深拷贝。
 然后我们就在pages下新建Result文件夹，放置403和404页面
-
-
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/25670148/1681437270146-62f38f5b-9989-4dfe-9dce-b7c993bd4bb5.png#averageHue=%2326282a&clientId=ub7925039-97f0-4&from=paste&height=221&id=ue2bd6969&name=image.png&originHeight=221&originWidth=228&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9286&status=done&style=none&taskId=u0483d7cd-cd42-4e91-a698-18684645ce5&title=&width=228)
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/25670148/1681437282175-0db3e9e4-afac-4300-bbbd-4c236f911963.png#averageHue=%23282a2d&clientId=ub7925039-97f0-4&from=paste&height=89&id=ua85ceffc&name=image.png&originHeight=89&originWidth=303&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5613&status=done&style=none&taskId=u262ce715-3a39-4941-a0cf-70bdca688cf&title=&width=303)
 errorPage代码
-https://github.com/whenTheMorningDark/react-antd-ts-admin/tree/2-menu-router/src/components
+[https://github.com/whenTheMorningDark/react-antd-ts-admin/tree/2-menu-router/src/components](https://github.com/whenTheMorningDark/react-antd-ts-admin/tree/2-menu-router/src/components)
 需要注意的是，我们是通过SVG引入的图片资源，所以需要在vite.config.ts中添加vite-plugin-svgr 插件
+```typescript
 import svgr from 'vite-plugin-svgr';
 ...
 export default defineConfig({
@@ -312,8 +339,10 @@ export default defineConfig({
   plugins: [svgr(), react(), eslint()],
   ...
 })
+```
 进入到router/index.ts配置对应的result的路由即可。
 result.ts
+```typescript
 import { lazy } from 'react';
 import { IRouter } from '../index';
 
@@ -338,10 +367,12 @@ const result: IRouter[] = [
 ];
 
 export default result;
-在浏览器输入对应的地址http://localhost:4000/result/403，即可出现对应的页面
-
-自定义Icon
+```
+在浏览器输入对应的地址[http://localhost:4000/result/403](http://localhost:4000/result/403)，即可出现对应的页面
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/25670148/1681437579105-816f61f6-630d-453c-b3ad-371242c89eef.png#averageHue=%23fdfdfd&clientId=ub7925039-97f0-4&from=paste&height=732&id=u1a78bc74&name=image.png&originHeight=732&originWidth=1637&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26457&status=done&style=none&taskId=uf5627ea6-fb5b-4539-9033-085f724e270&title=&width=1637)
+## 自定义Icon
 由于我们的菜单，往往都是后端的同事返回，而且icon，往往是字符串的形式，但是在antd的men中的Icon是具体的Icon组件，所以就必须全量导入Icon的形式。
+```typescript
 import * as Icon from '@ant-design/icons';
 const iconToElement = (name: any) =>
   React.createElement(Icon && (Icon as any)[name], {
@@ -361,11 +392,13 @@ const filterMenu = (routes: IRouter[]) => {
     return true; // 保留其他路由项
   });
 };
-菜单高亮
-当我们访问 http://localhost:4000/result/403 的时候，菜单没有自己展开，并且没有给高亮的状态，在antd的menu组件中，主要是defaultSelectedKeys字段控制菜单是否给选中
-useLocation
+```
+# 菜单高亮
+当我们访问 [http://localhost:4000/result/403](http://localhost:4000/result/403) 的时候，菜单没有自己展开，并且没有给高亮的状态，在antd的menu组件中，主要是defaultSelectedKeys字段控制菜单是否给选中
+## useLocation
 useLocation 是react-router-dom中自带的Hook，用来获取当前URL的信息,通过useState可定义defaultSelectedKeys 
 通过useEffect检测location.pathname变化时，赋值defaultSelectedKeys
+```typescript
 const [defaultSelectedKeys, setDefaultSelectedKeys] = useState('');
 const location = useLocation();
 useEffect(() => {
@@ -382,7 +415,9 @@ useEffect(() => {
       onClick={menuClick}
       onOpenChange={onOpenChange}
     />
+```
 utils/path.ts下的getActivePath
+```typescript
 /**
  * 获取当前激活的路由
  * @param pathName
@@ -394,8 +429,10 @@ export const getActivePath = (pathName: string) => {
   const splitPath = pathName.split('/');
   return `/${splitPath[splitPath.length - 1]}`;
 };
-默认打开菜单openKeys
+```
+## 默认打开菜单openKeys
 当我停留在二级路由页面时，然后刷新页面发现，并没有展开根目录，在antd的menu中，针对展开收起的操作，是通过openKeys实现的，并且是需要自己实现业务逻辑代码，这个时候，需要注意和onOpenChange方法结合在一起，否则会出现无法点击展开的情况。
+```typescript
 const onOpenChange = (keys: string[]) => {
   if (keys.length > openKeys.length) {
     setOpenKeys(keys);
@@ -412,14 +449,18 @@ const onOpenChange = (keys: string[]) => {
       onClick={menuClick}
       onOpenChange={onOpenChange}
     />
+```
 当我们location.pathname发生变化的时候，是需要重新打开该路径下的全部子节点的。
+```typescript
 useEffect(() => {
   const targetPath = getActivePath(location.pathname);
   setDefaultSelectedKeys(targetPath);
   const defaultOpenKeys = pathToParent(router, targetPath);
   setOpenKeys([...defaultOpenKeys, ...openKeys]);
 }, [location.pathname]);
+```
 utils/path
+```typescript
 export const pathToParent = (tRouter: IRouter[], key: string) => {
   const result: any[] = [];
   function dfs(arr: any[], path: any[]) {
@@ -440,4 +481,5 @@ export const pathToParent = (tRouter: IRouter[], key: string) => {
   dfs(tRouter, []);
   return result;
 };
+```
 pathToParent 只要是采取递归回溯的方式，通俗一点来说，就是该方法通过一个key，来获取该链路的父节点。
