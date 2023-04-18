@@ -371,7 +371,7 @@ export default result;
 在浏览器输入对应的地址[http://localhost:4000/result/403](http://localhost:4000/result/403)，即可出现对应的页面
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/25670148/1681437579105-816f61f6-630d-453c-b3ad-371242c89eef.png#averageHue=%23fdfdfd&clientId=ub7925039-97f0-4&from=paste&height=732&id=u1a78bc74&name=image.png&originHeight=732&originWidth=1637&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26457&status=done&style=none&taskId=uf5627ea6-fb5b-4539-9033-085f724e270&title=&width=1637)
 ## 自定义Icon
-由于我们的菜单，往往都是后端的同事返回，而且icon，往往是字符串的形式，但是在antd的men中的Icon是具体的Icon组件，所以就必须全量导入Icon的形式。
+由于我们的菜单，往往都是后端的同事返回，而且icon，往往是字符串的形式，但是在antd的menu中的Icon是具体的Icon组件，所以就必须全量导入Icon的形式。
 ```typescript
 import * as Icon from '@ant-design/icons';
 const iconToElement = (name: any) =>
