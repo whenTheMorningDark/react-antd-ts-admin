@@ -1,16 +1,21 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Menu } from 'antd';
 import router, { IRouter } from 'router';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Icon from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { useAppSelector } from 'modules/store';
-import { usePath } from 'hooks/usePath';
+import { useMenu } from 'hooks/useMenu';
 
 const iconToElement = (name: any) =>
   React.createElement(Icon && (Icon as any)[name], {
     style: { fontSize: '16px' }
   });
+/**
+ * 
+ * @param routes 带过滤的菜单数组
+ * @returns 过滤后的数据,排除hidden的菜单
+ */
 const filterMenu = (routes: IRouter[]) => {
   const targetRoutes: IRouter[] = JSON.parse(JSON.stringify(routes));
   return targetRoutes.filter(route => {
@@ -29,33 +34,20 @@ const filterMenu = (routes: IRouter[]) => {
 
 
 const defaultMenu = () => {
-  const [defaultSelectedKeys, setDefaultSelectedKeys] = useState('');
-  const [openKeys, setOpenKeys] = useState<string[]>([]);
-  const location = useLocation();
+  const { defaultSelectedKeys, openKeys, pathKeys, action } = useMenu();
   const navigate = useNavigate();
-  const { pathKeys, targetPath } = usePath();
   const global = useAppSelector((state) => state.global);
   const menuClick: MenuProps['onClick'] = (item) => {
     const pathKey = item.keyPath.reverse().join('');
     navigate(pathKey);
   };
-
-  useEffect(() => {
-    setDefaultSelectedKeys(targetPath);
-    const defaultOpenKeys = pathKeys.map(v => v.key);
-    setOpenKeys([...defaultOpenKeys, ...openKeys]);
-  }, [location.pathname]);
   const onOpenChange = (keys: string[]) => {
-    if (keys.length > openKeys.length) {
-      setOpenKeys(keys);
-    } else {
-      setOpenKeys(keys.filter((key) => openKeys.indexOf(key) !== -1));
-    }
+    action.onOpenChange(keys);
   };
   useEffect(() => {
     if (!global.isToggle) {
       const defaultOpenKeys = pathKeys.map(v => v.key);
-      onOpenChange(defaultOpenKeys);
+      action.onOpenChange(defaultOpenKeys);
     }
   }, [global.isToggle]);
   return (
