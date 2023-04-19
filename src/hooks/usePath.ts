@@ -5,12 +5,11 @@ import { useLocation } from 'react-router-dom';
 
 const usePath = () => {
   const location = useLocation();
-  const itemsData = useMemo(() => {
+  return useMemo(() => {
     const targetPath = getActivePath(location.pathname);
     const pathKeys = pathToParent(router, targetPath);
     return { pathKeys, targetPath };
   }, [location.pathname]);
-  return itemsData;
 };
 
 export {
