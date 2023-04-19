@@ -23,7 +23,6 @@ export const getActivePath = (pathName: string) => {
   const splitPath = pathName.split('/');
   return `/${splitPath[splitPath.length - 1]}`;
 };
-
 export const pathToParent = (tRouter: IRouter[], key: string) => {
   const result: any[] = [];
   function dfs(arr: any[], path: any[]) {
@@ -31,7 +30,7 @@ export const pathToParent = (tRouter: IRouter[], key: string) => {
       return;
     }
     for (const t of arr) {
-      path.push(t.key);
+      path.push(t);
       if (t.key === key) {
         result.push(...path);
       }

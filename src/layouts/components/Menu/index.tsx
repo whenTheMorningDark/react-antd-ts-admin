@@ -2,10 +2,10 @@ import React, { memo, useEffect, useState } from 'react';
 import { Menu } from 'antd';
 import router, { IRouter } from 'router';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getActivePath, pathToParent } from 'utils/path';
 import * as Icon from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { useAppSelector } from 'modules/store';
+import { usePath } from 'hooks/usePath';
 
 const iconToElement = (name: any) =>
   React.createElement(Icon && (Icon as any)[name], {
@@ -33,6 +33,7 @@ const defaultMenu = () => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const location = useLocation();
   const navigate = useNavigate();
+  const { pathKeys, targetPath } = usePath();
   const global = useAppSelector((state) => state.global);
   const menuClick: MenuProps['onClick'] = (item) => {
     const pathKey = item.keyPath.reverse().join('');
@@ -40,9 +41,8 @@ const defaultMenu = () => {
   };
 
   useEffect(() => {
-    const targetPath = getActivePath(location.pathname);
     setDefaultSelectedKeys(targetPath);
-    const defaultOpenKeys = pathToParent(router, targetPath);
+    const defaultOpenKeys = pathKeys.map(v => v.key);
     setOpenKeys([...defaultOpenKeys, ...openKeys]);
   }, [location.pathname]);
   const onOpenChange = (keys: string[]) => {
@@ -54,8 +54,7 @@ const defaultMenu = () => {
   };
   useEffect(() => {
     if (!global.isToggle) {
-      const targetPath = getActivePath(location.pathname);
-      const defaultOpenKeys = pathToParent(router, targetPath);
+      const defaultOpenKeys = pathKeys.map(v => v.key);
       onOpenChange(defaultOpenKeys);
     }
   }, [global.isToggle]);
