@@ -4,7 +4,7 @@ import { BarsOutlined, SettingOutlined } from '@ant-design/icons';
 import './index.less';
 import { useAppDispatch, useAppSelector } from 'modules/store';
 import { switchToggle } from 'modules/global/index';
-import { setDrawProps } from 'modules/draw';
+import { setDialogShow } from 'modules/draw';
 import AppBreadCrumb from '../AppBreadCrumb';
 
 const { Header } = Layout;
@@ -14,15 +14,14 @@ const AppHeader = () => {
   const handleClick = () => {
     dispatch(switchToggle(!global.isToggle));
   };
-  const onClose = () => {
-    console.log('onCloseaaaa');
-  };
   const openDrawer = () => {
-    dispatch(setDrawProps({
-      width: 458,
+    dispatch(setDialogShow({
       open: true,
-      title: 'wdwdw',
-      // onClose
+      width: 458,
+      propsData: {
+        id: 'qaq',
+        type: 'themeSetting'
+      }
     }));
   };
 

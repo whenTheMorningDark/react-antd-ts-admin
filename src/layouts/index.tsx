@@ -1,26 +1,35 @@
 import React from 'react';
 import './index.less';
 import { selectGlobal } from 'modules/global';
-import { useAppSelector } from 'modules/store';
+import { useAppSelector, useAppDispatch } from 'modules/store';
 import { Drawer } from 'antd';
+import { setDialogShow } from 'modules/draw';
+import WidthDetail from 'components/widthDetail';
 import AppLayout from './components/AppLayout';
 
 const Layouts = () => {
   const globalState = useAppSelector(selectGlobal);
   const drawState = useAppSelector((state) => state.draw);
+  console.log(drawState, 'www');
   const AppContainer = globalState.isFullPage ? AppLayout.FullPageLayout : AppLayout.SideLayout;
+  const dispatch = useAppDispatch();
+  const onClose = () => {
+    dispatch(setDialogShow({
+      open: false
+    }));
+  };
   return (
     <div className='layouts-page'>
       <AppContainer />
       <Drawer
         title='Basic Drawer'
         placement='right'
-        {...drawState.drawProps}
-        onClose={drawState.drawProps.onClose}
+        {...drawState}
+        onClose={drawState.onClose ? drawState.onClose : onClose}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        {
+          drawState?.propsData?.type ? <WidthDetail {...drawState?.propsData} /> : null
+        }
       </Drawer>
     </div>
   );

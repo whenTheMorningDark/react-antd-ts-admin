@@ -1,16 +1,29 @@
-import React, { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { memo, useEffect, useRef, ForwardedRef, useImperativeHandle } from 'react';
+import { Button } from 'antd';
+
+export interface MyComponentRef {
+  getData: () => string;
+}
+const MyComponent = React.forwardRef<MyComponentRef, { name: string }>((props, ref: ForwardedRef<MyComponentRef>) => {
+  useImperativeHandle(ref, () => ({
+    getData: () => props.name,
+  }));
+
+  return <div>This is my component!</div>;
+});
 
 const Dashboard = () => {
-  console.log('Dashboard');
-  const navigate = useNavigate();
-  const jump = () => {
-    navigate('/result/403/40334');
+  const node = useRef<MyComponentRef | null>(null);
+  const handleClick = () => {
+    console.log(node.current?.getData(), 'w');
   };
+  useEffect(() => {
+    console.log(node, 'w');
+  });
   return (
     <div className='z-h-100'>
-      <button type='button' onClick={jump}>s</button>
-
+      <Button onClick={handleClick}>按钮</Button>
+      <MyComponent ref={node} name='张三' />
     </div>
   );
 };
