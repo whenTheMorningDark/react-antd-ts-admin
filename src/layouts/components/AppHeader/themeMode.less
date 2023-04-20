@@ -1,0 +1,33 @@
+.themeMode-list {
+  display: flex;
+}
+
+.themeMode-list-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  cursor: pointer;
+  margin-right: 15px;
+  border: 1px solid #e3e6eb;
+  padding: 10px;
+  border-radius: 4px;
+
+  .bgColor {
+    width: 100%;
+    height: 68px;
+  }
+
+  .desc {
+    margin-top: 10px;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &.active {
+    border: 1px solid #0052d9;
+  }
+}

@@ -1,9 +1,15 @@
 import React from 'react';
+import ThemeMode from './themeMode';
 
-const ThemeSetting = (props: any) => {
+export interface Iprops {
+  id: string
+}
+const ThemeSetting = (props: Iprops) => {
   console.log('1');
   return (
-    <div>ThemeSetting</div>
+    <div className='themeSetting'>
+      <ThemeMode />
+    </div>
   );
 };
 export default ThemeSetting;

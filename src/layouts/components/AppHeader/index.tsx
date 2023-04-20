@@ -18,6 +18,7 @@ const AppHeader = () => {
     dispatch(setDialogShow({
       open: true,
       width: 458,
+      title: '页面设置',
       propsData: {
         id: 'qaq',
         type: 'themeSetting'
