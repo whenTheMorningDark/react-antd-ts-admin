@@ -2,7 +2,16 @@ import React, { useState } from 'react';
 import './themeMode.less';
 import classnames from 'classnames';
 
-const themeList = [
+interface Iprops {
+  onChange?: (value?: any) => void;
+}
+export interface listProps {
+  backgroundColor: string,
+  desc: string,
+  index: number
+}
+
+const themeList: listProps[] = [
   {
     backgroundColor: '#ddd',
     desc: '明亮',
@@ -15,10 +24,14 @@ const themeList = [
   }
 ];
 
-const themeMode = () => {
+const themeMode = (props: Iprops) => {
   const [activeIndex, setActiveIndex] = useState(1);
-  const handleClick = (index: number) => {
+  const handleClick = (v: listProps) => {
+    const { index } = v;
     setActiveIndex(index);
+    if (props.onChange) {
+      props.onChange(v);
+    }
   };
   return (
     <div className='themeMode'>
@@ -32,7 +45,7 @@ const themeMode = () => {
               className={classnames('themeMode-list-item', {
                 active: activeIndex === v.index
               })}
-              onClick={() => handleClick(v.index)}
+              onClick={() => handleClick(v)}
             >
               <div className='bgColor' style={{ backgroundColor: v.backgroundColor }}></div>
               <span className='desc'>{v.desc}</span>
