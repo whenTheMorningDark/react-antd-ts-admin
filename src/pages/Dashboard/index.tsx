@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef, ForwardedRef, useImperativeHandle } from 'react';
 import { Button } from 'antd';
+import axios from 'axios';
 
 export interface MyComponentRef {
   getData: () => string;
@@ -16,6 +17,9 @@ const Dashboard = () => {
   const node = useRef<MyComponentRef | null>(null);
   const handleClick = () => {
     console.log(node.current?.getData(), 'w');
+    axios.get('/api/post/list').then(res=>{
+      console.log(res,'w');
+    });
   };
   useEffect(() => {
     console.log(node, 'w');

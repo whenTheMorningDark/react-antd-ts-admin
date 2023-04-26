@@ -25,6 +25,13 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 4000,
-    proxy: {},
+    proxy: {
+      '/api': {
+        // 用于开发环境下的转发请求
+        // 更多请参考：https://vitejs.dev/config/#server-proxy
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
   }
 });
