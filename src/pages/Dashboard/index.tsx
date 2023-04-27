@@ -14,7 +14,7 @@ const MyComponent = React.forwardRef<MyComponentRef, { name: string }>((props, r
 });
 
 const Dashboard = () => {
-  const node = useRef<MyComponentRef | null>(null);
+    const node = useRef<MyComponentRef | null>(null);
   const handleClick = () => {
     console.log(node.current?.getData(), 'w');
     axios.get('/api/post/list').then(res=>{

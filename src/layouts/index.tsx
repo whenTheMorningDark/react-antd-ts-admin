@@ -8,9 +8,11 @@ import WidthDetail from 'components/widthDetail';
 import AppLayout from './components/AppLayout';
 
 
+
 const Layouts = () => {
   const globalState = useAppSelector(selectGlobal);
   const drawState = useAppSelector((state) => state.draw);
+  console.log(globalState.isFullPage, ' globalState.isFullPage');
   const AppContainer = globalState.isFullPage ? AppLayout.FullPageLayout : AppLayout.SideLayout;
   const dispatch = useAppDispatch();
   const onClose = () => {

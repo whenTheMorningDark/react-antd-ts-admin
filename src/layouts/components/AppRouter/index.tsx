@@ -60,7 +60,15 @@ const AppRouter = () => (
       </div>
     }
   >
-    <Routes>{renderRoutes(routers)}</Routes>
+
+    <Routes>
+      {/* <Route path='/login' element={Login()}></Route> */}
+
+      {renderRoutes(routers)}
+    </Routes>
   </Suspense>
-);
+)
+  // console.log()
+
+  ;
 export default memo(AppRouter);

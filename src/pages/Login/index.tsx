@@ -3,7 +3,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import './login.less';
 
-const Login: React.FC = () => {
+const Login = () => {
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
   };
