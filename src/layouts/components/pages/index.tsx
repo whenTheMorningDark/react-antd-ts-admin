@@ -13,7 +13,6 @@ const whiteRouter = ['/login'];
 
 const Page = (props: React.PropsWithChildren<PageProps>) => {
   const location = useLocation();
-  console.log(location, 'location');
   const dispatch = useAppDispatch();
   const { isFullPage, children } = props;
   const token = localStorage.getItem('token');

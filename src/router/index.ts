@@ -4,6 +4,7 @@ import type { SubMenuType } from 'antd/lib/menu/hooks/useItems';
 import dashboardRouter from './modules/dashboard';
 import resultRouter from './modules/result';
 import otherRoutes from './modules/others';
+import exampleRouter from './modules/example';
 
 export interface IRouter extends Omit<SubMenuType, 'children' | 'label' | 'icon'> {
   key: string;
@@ -49,7 +50,7 @@ const routes: IRouter[] = [
   },
 ];
 
-const allRoutes = [...routes, ...dashboardRouter, ...resultRouter, ...otherRoutes];
+const allRoutes = [...routes, ...dashboardRouter, ...resultRouter, ...exampleRouter, ...otherRoutes];
 
 
 export default allRoutes;
