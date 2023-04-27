@@ -13,17 +13,16 @@ const whiteRouter = ['/login'];
 
 const Page = (props: React.PropsWithChildren<PageProps>) => {
   const location = useLocation();
+  console.log(location, 'location');
   const dispatch = useAppDispatch();
-
-  console.log(location, 'w', location.search.indexOf('token'));
   const { isFullPage, children } = props;
-  const token = location.search.indexOf('token');
+  const token = localStorage.getItem('token');
   useEffect(() => {
     dispatch(switchFullPage(isFullPage));
   }, [isFullPage]);
   if (whiteRouter.includes(location.pathname)) {
     if (token) {
-      return <Navigate to={'/dashboard?token=7777'} replace />;
+      return <Navigate to={'/dashboard'} replace />;
     }
     if (isFullPage) {
       return <>{children}</>;
@@ -45,9 +44,6 @@ const Page = (props: React.PropsWithChildren<PageProps>) => {
       </Content>
     );
   }
-
-
-  return <Navigate to={'/login'} replace />;
-
+  return <Navigate to={`/login?redirect=${location.pathname}`} replace />;
 };
 export default React.memo(Page);

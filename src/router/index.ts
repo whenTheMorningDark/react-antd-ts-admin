@@ -49,7 +49,7 @@ const routes: IRouter[] = [
   },
 ];
 
-const allRoutes = [...routes, ...dashboardRouter, ...resultRouter,...otherRoutes];
+const allRoutes = [...routes, ...dashboardRouter, ...resultRouter, ...otherRoutes];
 
 
 export default allRoutes;

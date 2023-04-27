@@ -2,12 +2,21 @@ import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import './login.less';
+import { useNavigate } from 'react-router-dom';
+import { getQueryObject } from 'utils/path';
 
 const Login = () => {
+  const navigate = useNavigate();
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
+    localStorage.setItem('token', '45454');
+    const queryObj = getQueryObject();
+    if (queryObj.redirect) {
+      console.log('dwdw', `${queryObj.redirect}`);
+      navigate(`${queryObj.redirect}`);
+    } else {
+      navigate('/');
+    }
   };
-
   return (
     <Form
       name='normal_login'
@@ -41,4 +50,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default React.memo(Login);
