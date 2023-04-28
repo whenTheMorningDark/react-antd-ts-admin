@@ -8,7 +8,14 @@ const dashboardRouter: IRouter[] = [
     label: '首页',
     icon: 'HomeOutlined',
     meta: {},
-    Component: lazy(() => import('pages/Dashboard')),
+    children: [
+      {
+        key: '/base',
+        label: '控制台',
+        meta: {},
+        Component: lazy(() => import('pages/Dashboard/base'))
+      }
+    ]
   },
 ];
 

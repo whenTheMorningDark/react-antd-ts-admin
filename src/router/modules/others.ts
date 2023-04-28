@@ -5,6 +5,9 @@ const otherRoutes: IRouter[] = [
   {
     key: '*',
     Component: lazy(() => import('pages/Result/404')),
+    meta: {
+      hidden: true,
+    },
   },
 ];
 

@@ -11,7 +11,6 @@ const Login = () => {
     localStorage.setItem('token', '45454');
     const queryObj = getQueryObject();
     if (queryObj.redirect) {
-      console.log('dwdw', `${queryObj.redirect}`);
       navigate(`${queryObj.redirect}`);
     } else {
       navigate('/');
