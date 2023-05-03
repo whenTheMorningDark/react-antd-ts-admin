@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Row, Col, Card, Tooltip } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Chart } from '@antv/g2';
+import * as echarts from 'echarts';
+import { bind, clear } from 'lib/size-sensor';
 
 const DashboardBase = () => {
   console.log('w');
@@ -15,15 +16,33 @@ const DashboardBase = () => {
   useEffect(() => {
     // 循环遍历卡片列表，并在每个图表容器上添加相应的图表
     cardList.forEach(item => {
-      console.log(chartRef.current[item.id], 'chartRef.current[item.id]');
-      // const chartInstance = new Chart({
-      //   container: chartRef.current[item.id],
-      //   width: 500,
-      //   height: 200,
+      // console.log(chartRef.current[item.id], 'chartRef.current[item.id]');
+      const dom = chartRef.current[item.id];
+      const myChart = echarts.init(dom);
+      myChart.setOption({
+        title: {
+          text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+          }
+        ]
+      });
+      bind(dom, () => {
+        console.log('123');
+        myChart.resize();
+      });
+      // dom.addEventListener('resize', () => {
+      //   console.log('123');
       // });
-      // chartInstance.data(yourData);
-      // chartInstance.line().position(x-y).color(z);
-      // chartInstance.render();
     });
   }, [cardList]);
   return (
@@ -42,7 +61,7 @@ const DashboardBase = () => {
               >
                 <div id='container' ref={(el) => {
                   if (el != null) chartRef.current[v.id] = el;
-                }} style={{ height: '200px' }}></div>
+                }} style={{ height: '200px', width: '100%' }}></div>
               </Card>
             </Col>
           )) : null

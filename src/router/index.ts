@@ -43,7 +43,7 @@ const routes: IRouter[] = [
   },
   {
     key: '/',
-    redirect: '/dashboard',
+    redirect: '/dashboard/base',
     meta: {
       hidden: true,
     },
