@@ -36,13 +36,12 @@ const DashboardBase = () => {
           }
         ]
       });
-      bind(dom, () => {
-        console.log('123');
+      const unbind = bind(dom, () => {
         myChart.resize();
       });
-      // dom.addEventListener('resize', () => {
-      //   console.log('123');
-      // });
+      return () => {
+        unbind();
+      };
     });
   }, [cardList]);
   return (

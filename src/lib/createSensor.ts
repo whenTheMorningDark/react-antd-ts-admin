@@ -1,11 +1,13 @@
-import { elementType } from './type';
+import ResizeObserver from 'resize-observer-polyfill';
+import { elementType, callBackType } from './type';
 
-const debounce = (fn: any, delay = 60) => {
-  let timer: any = null;
+const debounce = <T extends unknown[]>(fn: (...args: T) => void, delay = 60) => {
+  let timer: ReturnType<typeof setTimeout> | null = null;
 
-  return (...args: any[]) => {
-    clearTimeout(timer);
-
+  return (...args: T) => {
+    if (timer !== null) {
+      clearTimeout(timer);
+    }
     timer = setTimeout(() => {
       fn.apply(this, args);
     }, delay);
@@ -14,21 +16,19 @@ const debounce = (fn: any, delay = 60) => {
 
 
 export const createSensor = (element: elementType) => {
-  let sensor: any;
-  const listeners: any[] = [];
+  let sensor: ResizeObserver | undefined;
+  let listeners: callBackType[] = [];
   const resizeListener = debounce(() => {
-    // trigger all
     listeners.forEach(listener => {
       listener(element);
     });
   });
   const newSensor = () => {
     const s = new ResizeObserver(resizeListener);
-    // listen element
     s.observe(element);
     return s;
   };
-  const bind = (cb: any) => {
+  const bind = (cb: callBackType) => {
     if (!sensor) {
       sensor = newSensor();
     }
@@ -36,7 +36,26 @@ export const createSensor = (element: elementType) => {
       listeners.push(cb);
     }
   };
+  const destroy = () => {
+    if (sensor) {
+      sensor.disconnect();
+    }
+    listeners = [];
+    sensor = undefined;
+  };
+  const unbind = (cb: callBackType) => {
+    const idx = listeners.indexOf(cb);
+    if (idx !== -1) {
+      listeners.splice(idx, 1);
+    }
+    if (listeners.length === 0 && sensor) {
+      destroy();
+    }
+  };
   return {
-    bind
+    bind,
+    unbind,
+    destroy,
+    element
   };
 };
