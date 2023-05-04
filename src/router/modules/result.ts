@@ -10,24 +10,12 @@ const result: IRouter[] = [
       {
         key: '/403',
         label: '403',
-        children: [
-          {
-            key: '/40334',
-            Component: lazy(() => import('pages/Result/403')),
-            label: '40334',
-          }
-        ]
+        Component: lazy(() => import('pages/Result/403'))
       },
       {
         key: '/404',
         label: '404',
-        children: [
-          {
-            key: '/404232',
-            Component: lazy(() => import('pages/Result/404')),
-            label: '404232',
-          }
-        ]
+        Component: lazy(() => import('pages/Result/404'))
       },
     ],
   },
