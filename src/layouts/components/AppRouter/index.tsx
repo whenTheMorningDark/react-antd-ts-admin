@@ -1,18 +1,14 @@
 import React, { memo, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import routers, { IRouter } from 'router';
 import { resolve } from 'utils/path';
 import { generateUid } from 'utils/uid';
 import { Spin } from 'antd';
+import { CSSTransition } from 'react-transition-group';
 import Page from '../pages';
+import './index.less';
 
 type TRenderRoutes = (routes: IRouter[], parentPath?: string, breadcrumbs?: string[]) => React.ReactNode[];
-/**
- * 渲染应用路由
- * @param routes
- * @param parentPath
- * @param breadcrumb
- */
 
 const renderRoutes: TRenderRoutes = (routes: IRouter[], parentPath = '') => {
   const result: React.ReactNode[] = [];
@@ -51,24 +47,27 @@ const renderRoutes: TRenderRoutes = (routes: IRouter[], parentPath = '') => {
   return result;
 };
 
+const AppRouter = () => {
+  const location = useLocation();
 
-const AppRouter = () => (
-  <Suspense
-    fallback={
-      <div>
-        <Spin />
-      </div>
-    }
-  >
+  return (
+    <Suspense
+      fallback={
+        <div>
+          <Spin />
+        </div>
+      }
+    >
+      <CSSTransition
+        in={Boolean(location.key)}
+        timeout={100}
+        classNames={'fade'}
+        unmountOnExit
+      >
+        <Routes location={location}>{renderRoutes(routers)}</Routes>
+      </CSSTransition>
+    </Suspense>
+  );
+};
 
-    <Routes>
-      {/* <Route path='/login' element={Login()}></Route> */}
-
-      {renderRoutes(routers)}
-    </Routes>
-  </Suspense>
-)
-  // console.log()
-
-  ;
 export default memo(AppRouter);
