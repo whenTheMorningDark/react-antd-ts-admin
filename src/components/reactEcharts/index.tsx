@@ -7,7 +7,6 @@ interface iReactEchartsProps {
 }
 
 const ReactEcharts = (props: iReactEchartsProps) => {
-  console.log('www');
   const { options } = props;
   const echartDom = useRef<HTMLDivElement | null>(null);
   let myChart: echarts.ECharts;

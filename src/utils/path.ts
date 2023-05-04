@@ -1,5 +1,8 @@
 
 import { IRouter } from 'router';
+import * as Icon from '@ant-design/icons';
+import React from 'react';
+import { cloneDeep } from 'lodash';
 /**
  * 解析当前菜单对应的路由
  * @param path1
@@ -58,3 +61,52 @@ export function getQueryObject(url?: string) {
   });
   return obj;
 }
+
+const iconToElement = (name: any) =>
+  React.createElement(Icon && (Icon as any)[name], {
+    style: { fontSize: '16px' }
+  });
+/**
+ * 
+ * @param routes 带过滤的菜单数组
+ * @returns 过滤后的数据,排除hidden的菜单
+ */
+export const filterMenu = (routes: IRouter[]) => {
+  const targetRoutes: IRouter[] = JSON.parse(JSON.stringify(routes));
+  return targetRoutes.filter(route => {
+    delete route.Component;
+    route.icon = route.icon ? iconToElement(route.icon) : '';
+    if (route.meta?.hidden) {
+      return false; // 过滤掉隐藏路由项
+    }
+    if (route.children?.length) {
+      route.children = filterMenu(route.children); // 递归处理子路由
+    }
+    return true; // 保留其他路由项
+  });
+};
+
+export const getParentKey = (routes: IRouter[]) => {
+  const result: IRouter[] = [];
+  function dfs(tRouter: IRouter[], path?: string) {
+    if (!tRouter || tRouter.length === 0) {
+      return;
+    }
+    for (let i = 0; i < tRouter.length; i++) {
+      const item = tRouter[i];
+      if (item.children && item.children.length > 0) {
+        const parentPath = (path || '') + item.key;
+        dfs(item.children, parentPath);
+      } else {
+        if (path && path.length > 0) {
+          item.key = path + item.key;
+        }
+        if (!item.meta?.isFullPage) {
+          result.push(item);
+        }
+      }
+    }
+  }
+  dfs(cloneDeep(routes));
+  return result;
+};
