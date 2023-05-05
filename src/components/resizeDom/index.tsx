@@ -23,7 +23,7 @@ const ResizeDom = (props: React.PropsWithChildren<iResizeDomProps>) => {
   }, [domRef, onResize]);
 
   return (
-    <div className='resizeDom' ref={domRef}>
+    <div className='resizeDom' ref={domRef} style={{ position: 'relative' }}>
       {children}
     </div>
   );

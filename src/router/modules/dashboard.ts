@@ -14,6 +14,12 @@ const dashboardRouter: IRouter[] = [
         label: '控制台',
         meta: {},
         Component: lazy(() => import('pages/Dashboard/base'))
+      },
+      {
+        key: '/workPlace',
+        label: '工作台',
+        meta: {},
+        Component: lazy(() => import('pages/Dashboard/workPlace'))
       }
     ]
   },

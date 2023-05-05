@@ -2,12 +2,13 @@ import React, { useRef, useEffect } from 'react';
 import * as echarts from 'echarts';
 import ResizeDom from 'components/resizeDom';
 
-interface iReactEchartsProps {
-  options: echarts.EChartOption<echarts.EChartOption.SeriesLine | echarts.EChartOption.SeriesBar>
+export interface iReactEchartsProps {
+  style?: React.CSSProperties
+  options: echarts.EChartOption<echarts.EChartOption.Series> | echarts.EChartsResponsiveOption;
 }
 
 const ReactEcharts = (props: iReactEchartsProps) => {
-  const { options } = props;
+  const { options, style } = props;
   const echartDom = useRef<HTMLDivElement | null>(null);
   let myChart: echarts.ECharts;
   useEffect(() => {
@@ -25,7 +26,7 @@ const ReactEcharts = (props: iReactEchartsProps) => {
   };
   return (
     <ResizeDom onResize={onResize}>
-      <div ref={echartDom} style={{ width: '100%', height: '200px' }}></div>
+      <div ref={echartDom} style={{ width: '100%', height: '200px', ...style }}></div>
     </ResizeDom>
   );
 };

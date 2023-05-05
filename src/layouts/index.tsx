@@ -4,7 +4,7 @@ import { selectGlobal } from 'modules/global';
 import { useAppSelector, useAppDispatch } from 'modules/store';
 import { Drawer, Result, ConfigProvider } from 'antd';
 import { setDialogShow } from 'modules/draw';
-import WidthDetail from 'components/widthDetail';
+import WithDetail from 'components/widthDetail';
 import AppLayout from './components/AppLayout';
 
 
@@ -36,7 +36,7 @@ const Layouts = () => {
           onClose={drawState.onClose ? drawState.onClose : onClose}
         >
           {
-            drawState?.propsData?.type ? <WidthDetail {...drawState?.propsData} /> : <Result
+            drawState?.propsData?.type ? <WithDetail {...drawState?.propsData} /> : <Result
               status='warning'
               title='There are some problems with your operation.'
             />

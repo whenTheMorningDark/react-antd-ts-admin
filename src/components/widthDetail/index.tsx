@@ -11,7 +11,7 @@ const error = () => (
     title='There are some problems with your operation.'
   />
 );
-const WidthDetail = (props: { type?: string }) => {
+const WithDetail = (props: { type?: string }) => {
   const { type, ...reset } = props;
   const mapComponents: mapTypes = {
     themeSetting: ThemeSetting(reset as Iprops),
@@ -24,4 +24,4 @@ const WidthDetail = (props: { type?: string }) => {
   return error();
 };
 
-export default WidthDetail;
+export default WithDetail;
