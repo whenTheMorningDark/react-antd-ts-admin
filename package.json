@@ -27,6 +27,7 @@
     "react-transition-group": "^4.4.5",
     "resize-observer-polyfill": "^1.5.1",
     "unicorn": "^0.0.1",
+    "use-animate-number": "^1.0.5",
     "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {

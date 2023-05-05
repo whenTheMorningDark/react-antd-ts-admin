@@ -2,9 +2,9 @@ import React from 'react';
 import FormatterNumber from 'components/formatterNumber';
 
 
-
 const Sale = (props: { total: number }) => {
   const { total } = props;
+
   return (
     <div className='sale'>
       <FormatterNumber number={total} />
