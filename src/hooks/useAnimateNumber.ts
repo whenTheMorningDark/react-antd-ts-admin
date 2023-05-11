@@ -95,7 +95,6 @@ const useAnimateNumber: IuseAnimateNumber = (
       setAnimationInfo({ value, skip });
     }, 1);
   };
-  console.log(currentTime, 'currentTime');
   // Animation frame for each currentTime change.
   useEffect(() => {
     if (currentTime < conf.duration) {

@@ -20,9 +20,9 @@ interface ComponentsType<T> {
 }
 const cardList: iCradProps[] = [
   { title: '销售额度', id: 1, badgeText: '周', total: 25848, type: 'sale', count: '560万' },
-  // { title: '访问量', id: 2, badgeText: '年', total: 12000, type: 'visited', count: '80万' },
-  // { title: '订单量', id: 3, badgeText: '月', total: 1680, type: 'account', count: '70万' },
-  // { title: '新增用户', id: 4, badgeText: '日', total: 128, type: 'user', count: '1200人' }
+  { title: '访问量', id: 2, badgeText: '年', total: 12000, type: 'visited', count: '80万' },
+  { title: '订单量', id: 3, badgeText: '月', total: 1680, type: 'account', count: '70万' },
+  { title: '新增用户', id: 4, badgeText: '日', total: 128, type: 'user', count: '1200人' }
 ];
 
 const components: ComponentsType<iCradProps> = {
