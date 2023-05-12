@@ -43,7 +43,7 @@ const TopPanel = () => (
             xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 6 }}
             key={v.title}
           >
-            <Card title={v.title} headStyle={{ color: ' rgb(81, 90, 110)' }} bodyStyle={{ padding: '10px' }}>
+            <Card title={v.title} headStyle={{ color: ' rgb(81, 90, 110)' }} bodyStyle={{ padding: '10px' }} bordered={false}>
               <Component {...v} />
               <CardFooter label={`总${v.title}`} value={v.count} />
             </Card>

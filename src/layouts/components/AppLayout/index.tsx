@@ -7,7 +7,7 @@ import AppHeader from '../AppHeader';
 import AppTab from '../AppTab';
 
 const SideLayout = React.memo(() => (
-  <div className='layout-sidebar'>
+  <div className='layout-container'>
     <Menu />
     <Layout>
       <AppHeader />

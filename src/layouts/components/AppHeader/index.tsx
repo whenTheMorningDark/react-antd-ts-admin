@@ -27,7 +27,7 @@ const AppHeader = () => {
   };
 
   return (
-    <Header>
+    <Header className='ka-header'>
       <div className='header-left'>
         <BarsOutlined style={{ fontSize: '22px' }} onClick={handleClick} />
         <AppBreadCrumb />

@@ -36,6 +36,7 @@ const defaultMenu = () => {
       onClick={menuClick}
       onOpenChange={onOpenChange}
       inlineCollapsed={global.isToggle}
+      theme={global.theme}
     />
   );
 };

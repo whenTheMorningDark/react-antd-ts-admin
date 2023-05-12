@@ -1,3 +1,23 @@
+.ka-header {
+  background-color: var(--ka-brand-color);
+  color: var(--ka-brand-color-text1);
+
+  .ant-breadcrumb {
+    color: var(--ka-brand-color-text1);
+
+    .ant-breadcrumb-separator {
+      color: var(--ka-brand-color-text1);
+    }
+
+    li {
+      &:last-child {
+        color: var(--ka-brand-color-text2);
+      }
+    }
+  }
+
+}
+
 .header-left {
   display: flex;
   align-items: center;
@@ -13,7 +33,7 @@
     margin-right: 10px;
 
     &:hover {
-      background-color: #eee;
+      background-color: var(--ka-brand-color-text3);
     }
   }
 }

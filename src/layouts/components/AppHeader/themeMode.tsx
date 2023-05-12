@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './themeMode.less';
 import classnames from 'classnames';
+import { switchTheme } from 'modules/global';
+import { useAppDispatch } from 'modules/store';
 
 interface Iprops {
   onChange?: (value?: any) => void;
@@ -8,30 +10,32 @@ interface Iprops {
 export interface listProps {
   backgroundColor: string,
   desc: string,
-  index: number
+  index: number,
+  type: string
 }
 
 const themeList: listProps[] = [
   {
     backgroundColor: '#ddd',
     desc: '明亮',
-    index: 1
+    index: 1,
+    type: 'light'
   },
   {
     backgroundColor: 'rgba(0,0,0,0.9)',
     desc: '暗黑',
-    index: 2
+    index: 2,
+    type: 'dark'
   }
 ];
 
-const themeMode = (props: Iprops) => {
+const themeMode = () => {
   const [activeIndex, setActiveIndex] = useState(1);
+  const dispatch = useAppDispatch();
   const handleClick = (v: listProps) => {
     const { index } = v;
     setActiveIndex(index);
-    if (props.onChange) {
-      props.onChange(v);
-    }
+    dispatch(switchTheme(v.type));
   };
   return (
     <div className='themeMode'>

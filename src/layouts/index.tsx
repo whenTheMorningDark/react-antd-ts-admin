@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.less';
-import { selectGlobal } from 'modules/global';
+import { selectGlobal, switchTheme } from 'modules/global';
 import { useAppSelector, useAppDispatch } from 'modules/store';
 import { Drawer, Result, ConfigProvider } from 'antd';
 import { setDialogShow } from 'modules/draw';
 import WithDetail from 'components/widthDetail';
 import AppLayout from './components/AppLayout';
-
 
 
 const Layouts = () => {
@@ -20,6 +19,10 @@ const Layouts = () => {
       open: false
     }));
   };
+  useEffect(() => {
+    dispatch(switchTheme('light'));
+  }, []);
+
   return (
 
     <div className='layouts-page'>
