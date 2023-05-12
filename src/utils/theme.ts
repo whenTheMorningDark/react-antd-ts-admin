@@ -17,15 +17,12 @@ export const themeConfig: Record<string, Record<string, string>> = {
     '--ka-brand-card': '#000c17'
   }
 };
-const getColorMapKey = (colorMap: Record<string, string>) => {
-  let result = '';
-  for (const key in colorMap) {
-    if (colorMap[key]) {
-      result += `${key}:${colorMap[key]};`;
-    }
-  }
-  return result;
-};
+const getColorMapKey = (colorMap: Record<string, string>) =>
+  Object.keys(colorMap).reduce((cur, next) => {
+    cur += `${next}:${colorMap[next]};`;
+    return cur;
+  }, '');
+
 
 export function insertThemeStylesheet(theme: string, colorMap: Record<string, string>, mode: 'light' | 'dark') {
   if (!colorMap || Object.keys(colorMap).length === 0) {
