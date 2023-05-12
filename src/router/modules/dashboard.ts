@@ -1,5 +1,7 @@
 import { lazy } from 'react';
 // import { BorderOuterOutlined } from '@ant-design/icons';
+import DashboardBoard from 'pages/Dashboard/base';
+import WorkPlace from 'pages/Dashboard/workPlace';
 import { IRouter } from '../index';
 
 const dashboardRouter: IRouter[] = [
@@ -13,13 +15,13 @@ const dashboardRouter: IRouter[] = [
         key: '/base',
         label: '控制台',
         meta: {},
-        Component: lazy(() => import('pages/Dashboard/base'))
+        Component: DashboardBoard
       },
       {
         key: '/workPlace',
         label: '工作台',
         meta: {},
-        Component: lazy(() => import('pages/Dashboard/workPlace'))
+        Component: WorkPlace
       }
     ]
   },

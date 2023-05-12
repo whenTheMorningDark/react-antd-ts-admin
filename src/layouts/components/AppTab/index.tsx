@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import './index.less';
 import { useTab } from 'hooks/useTab';
@@ -29,4 +29,4 @@ const AppTab = () => {
   );
 };
 
-export default AppTab;
+export default memo(AppTab);

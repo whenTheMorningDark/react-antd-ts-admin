@@ -20,8 +20,6 @@ const useTab = () => {
       const isHave = list.some(v => v.key === location.pathname);
       if (!isHave) {
         push(target);
-      } else {
-        jump(location.pathname);
       }
     }
   }, [location.pathname]);
