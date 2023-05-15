@@ -32,27 +32,30 @@ const components: ComponentsType<iCradProps> = {
   user: User
 };
 
-const TopPanel = () => (
-  <Row gutter={[16, 16]}>
-    {cardList.map((v) => {
-      const key = v.type;
-      const Component = components[key] ? components[key] : null;
-      if (Component) {
-        return (
-          <Col
-            xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 6 }}
-            key={v.title}
-          >
-            <Card title={v.title} headStyle={{ color: ' rgb(81, 90, 110)' }} bodyStyle={{ padding: '10px' }} bordered={false}>
-              <Component {...v} />
-              <CardFooter label={`总${v.title}`} value={v.count} />
-            </Card>
-          </Col>
-        );
-      }
-      return null;
-    })}
-  </Row>
-);
+const TopPanel = () => {
+  console.log('TopPanel');
+  return (
+    <Row gutter={[16, 16]}>
+      {cardList.map((v) => {
+        const key = v.type;
+        const Component = components[key] ? components[key] : null;
+        if (Component) {
+          return (
+            <Col
+              xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }} xl={{ span: 6 }}
+              key={v.title}
+            >
+              <Card title={v.title} headStyle={{ color: ' rgb(81, 90, 110)' }} bodyStyle={{ padding: '10px' }} bordered={false}>
+                <Component {...v} />
+                <CardFooter label={`总${v.title}`} value={v.count} />
+              </Card>
+            </Col>
+          );
+        }
+        return null;
+      })}
+    </Row>
+  );
+};
 
 export default React.memo(TopPanel);
